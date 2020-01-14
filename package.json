@@ -12,6 +12,7 @@
         "build": "tsdx build --target node",
         "test": "tsdx test",
         "lint": "tsdx lint src",
+        "lint-fix": "tsdx lint --fix",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
     },
     "peerDependencies": {},
