@@ -12,6 +12,7 @@
         "build": "tsdx build --target node",
         "test": "tsdx test",
         "lint": "tsdx lint src",
+        "lint-fix": "tsdx lint --fix",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
     },
     "peerDependencies": {},
@@ -24,11 +25,12 @@
         "@types/got": "^9.6.7",
         "@types/jest": "^24.0.18",
         "@types/ws": "^6.0.3",
+        "babel-eslint": "^10.0.3",
         "husky": "^3.0.5",
         "prettier": "^1.18.2",
-        "tsdx": "^0.9.3",
+        "tsdx": "^0.12.3",
         "tslib": "^1.10.0",
-        "tslint": "^5.20.0",
+        "tslint": "^5.20.1",
         "tslint-config-prettier": "^1.18.0",
         "typescript": "^3.5.2"
     },
