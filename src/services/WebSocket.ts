@@ -29,8 +29,6 @@ class WebSocketClient extends EventEmitter {
     private config: IClientConfig;
     private ws: WebSocket | undefined | null;
     private headers: ISocketRequest | IPublicSocketRequest;
-    // private orderbookSnapshotByMarket: any;
-    // private orderbookUpdateQueue: any[];
 
     constructor() {
         super();
@@ -38,7 +36,6 @@ class WebSocketClient extends EventEmitter {
         this.headers = {
             clientType: 'api',
         };
-        // this.orderbookUpdateQueue = [];
 
         if (this.config.key || this.config.secret) {
             this.headers = {
@@ -238,93 +235,6 @@ class WebSocketClient extends EventEmitter {
         return result;
     }
 
-    // private _castOrderbookUpdate(data: any): IOrderBookUpdateEventData | null {
-    //     const { messageType, snapshot, ...otherKeys } = data;
-
-    //     if (snapshot) {
-    //         if (!this.orderbookSnapshotByMarket) {
-    //             this.orderbookSnapshotByMarket = {};
-    //         }
-
-    //         this.orderbookSnapshotByMarket[data.marketId as string] = {
-    //             ...otherKeys,
-    //         } as IOrderBookUpdateEventData;
-    //         //Appling queue
-    //         this._orderbookUpdateQueue(data.marketId);
-    //     } else {
-    //         if (!this.orderbookSnapshotByMarket || !this.orderbookSnapshotByMarket[data.marketId]) {
-    //             this.orderbookUpdateQueue.push(data);
-    //             return null;
-    //         }
-
-    //         const snapshotObject = this.orderbookSnapshotByMarket[data.marketId] as IOrderBookUpdateEventData;
-    //         const updateResult = this._pushOrderbookUpdateToSnapshot(snapshotObject, data);
-    //         if (!updateResult) {
-    //             return null;
-    //         }
-    //     }
-
-    //     return this.orderbookSnapshotByMarket[data.marketId] as IOrderBookUpdateEventData;
-    // }
-
-    // private _mergeOrderbookArrays(newArray: any[], targetArray: any[], isAscending: boolean): void {
-    //     for (const item of newArray) {
-    //         const existingOrder = targetArray.filter(x => x[0] === item[0])[0]; //Getting bid or ask with same price
-    //         if (!existingOrder && item[2] !== 0) {
-    //             targetArray.push(item);
-    //             //sorting array
-    //             targetArray.sort((a, b) =>
-    //                 isAscending ? parseFloat(a[0]) - parseFloat(b[0]) : parseFloat(b[0]) - parseFloat(a[0])
-    //             );
-    //         } else {
-    //             if (item[2] === 0) {
-    //                 const index = targetArray.findIndex(b => b[0] === item[0]);
-    //                 targetArray.splice(index, 1);
-    //             } else {
-    //                 existingOrder[1] = item[1]; // Volume
-    //                 existingOrder[2] = item[2]; // count
-    //             }
-    //         }
-    //     }
-    // }
-
-    // private _pushOrderbookUpdateToSnapshot(snapshotObject: IOrderBookUpdateEventData, updateData: any) {
-    //     if (snapshotObject.snapshotId >= updateData.snapshotId) {
-    //         return false;
-    //     }
-
-    //     snapshotObject.snapshotId = updateData.snapshotId;
-
-    //     this._mergeOrderbookArrays(updateData.bids, snapshotObject.bids, false);
-    //     this._mergeOrderbookArrays(updateData.asks, snapshotObject.asks, true);
-    //     return true;
-    // }
-
-    // private _orderbookUpdateQueue(marketId: string) {
-    //     const marketQueue = this.orderbookUpdateQueue.filter(x => x.marketId === marketId);
-
-    //     //Appling queue
-    //     if (marketQueue.length > 0) {
-    //         marketQueue.sort((a, b) => b.snapshotId - a.snapshotId);
-    //         while (marketQueue.length > 0) {
-    //             const queueData = marketQueue.pop();
-    //             const snapshotObject = this.orderbookSnapshotByMarket[
-    //                 queueData.marketId as string
-    //             ] as IOrderBookUpdateEventData;
-    //             if (!snapshotObject) {
-    //                 console.log(queueData.marketId, 'marketId');
-    //                 console.log(this.orderbookSnapshotByMarket, 'snapshot');
-    //             }
-    //             this._pushOrderbookUpdateToSnapshot(snapshotObject, queueData);
-    //             //removing processed element from queue
-    //             const index = this.orderbookUpdateQueue.findIndex(i => i.snapshotId === queueData.snapshotId);
-    //             if (index > -1) {
-    //                 this.orderbookUpdateQueue.splice(index, 1);
-    //             }
-    //         }
-    //         this.orderbookUpdateQueue.filter(el => !this.orderbookUpdateQueue.includes(el));
-    //     }
-    // }
     //end region
 }
 
