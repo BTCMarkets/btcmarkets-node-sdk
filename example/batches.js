@@ -1,4 +1,4 @@
-const BTCMarkets = require('../dist/btcmarkets-api-node.cjs.development').default;
+const BTCMarkets = require('../dist/btcmarkets-node-sdk.cjs.development').default;
 
 const client = new BTCMarkets({ key: 'XXX', secret: 'XXX' });
 
