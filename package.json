@@ -1,6 +1,16 @@
 {
     "name": "btcmarkets-node-sdk",
     "version": "0.1.0",
+    "author": {
+        "name": "BTC Markets",
+        "email": "support@btcmarkets.net",
+        "url": "https://www.btcmarkets.net"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BTCMarkets/btcmarkets-node-sdk"
+    },
+    "license": "MIT",
     "main": "dist/index.js",
     "module": "dist/btcmarkets-node-sdk.cjs.production.min",
     "typings": "dist/index.d.ts",
@@ -22,7 +32,6 @@
         }
     },
     "devDependencies": {
-        "@types/got": "^9.6.7",
         "@types/jest": "^24.0.18",
         "@types/ws": "^6.0.3",
         "babel-eslint": "^10.0.3",
