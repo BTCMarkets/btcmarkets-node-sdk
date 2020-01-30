@@ -69,3 +69,28 @@ const client = new BTCMarkets({ key: 'XXX', secret: 'XXX' });
     }
 })();
  */
+
+//Error handling
+
+(async () => {
+    try {
+        const newOrder = {
+            price: '100.12',
+            amount: '1.034',
+            type: 'Limit',
+            side: 'Bid',
+        };
+        const response = await client.orders.placeNewOrder(newOrder);
+        console.log(response.data);
+    } catch (error) {
+        if (error.code === 'InvalidApiKey') {
+            console.log(error.message, 'api key is not correct');
+        } else if (error.code === 'InvalidMarketId') {
+            console.log(error.message, 'market id not correct');
+        } else if (error.code === 'InvalidOrderType') {
+            console.log(error.message, 'order type is not correct');
+        } else if (error.code === 'InvalidOrderSide') {
+            console.log(error.message, 'order side is not correct');
+        }
+    }
+})();
