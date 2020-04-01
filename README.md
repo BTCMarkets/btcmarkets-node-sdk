@@ -1825,6 +1825,33 @@ const webSocket = client.socket;
 ##### error
 
 ### Error handling
+Below is an example of error handling using try catch when placing orders. The error codes along with the message can be used to handle specific situations programmatically.
+[please see here for the full list of error codes](https://api.btcmarkets.net/doc/v3/#tag/ErrorCodes)
+
+```js
+(async () => {
+    try {
+        const newOrder = {
+            price: '100.12',
+            amount: '1.034',
+            type: 'Limit',
+            side: 'Bid',
+        };
+        const response = await client.orders.placeNewOrder(newOrder);
+        console.log(response.data);
+    } catch (error) {
+        if (error.code === 'InvalidApiKey') {
+            console.log(error.message, 'api key is not correct');
+        } else if (error.code === 'InvalidMarketId') {
+            console.log(error.message, 'market id not correct');
+        } else if (error.code === 'InvalidOrderType') {
+            console.log(error.message, 'order type is not correct');
+        } else if (error.code === 'InvalidOrderSide') {
+            console.log(error.message, 'order side is not correct');
+        }
+    }
+})();
+```
 
 ## Local Development
 
