@@ -105,7 +105,7 @@ const client = new BTCMarkets({ key: 'XXX', secret: 'XXX' });
 /*
 (async () => {
   try {
-    const response = await client.funds.withdrawFiat({assetName: 'AUD', amount: '25', accountName: 'abcd', accountNumber: '1234', bsbNumber: '456789', bankName:'NAB'});
+    const response = await client.funds.withdrawFiat({assetName: 'AUD', amount: '1', accountName: 'John Smith', accountNumber: '10099999', bsbNumber: '111111', bankName:'Test Bank', paymentDescription: 'test'});
     console.log(response.data);
   } catch (error) {
     console.log('error', error);
