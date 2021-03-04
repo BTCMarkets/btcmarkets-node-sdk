@@ -29,6 +29,7 @@ export interface IFiatWithdrawRequest {
     accountNumber: string;
     bsbNumber: string;
     bankName: string;
+    paymentDescription: string;
 }
 
 export interface IPaymentDetail {
