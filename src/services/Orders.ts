@@ -5,7 +5,14 @@ import { IGetOrdersRequest, IPlaceOrderRequest } from '../types/OrderRequest';
 import orderTypes from '../collections/orderTypes';
 import orderSides from '../collections/orderSides';
 import BaseError from '../models/BaseError';
-import { IOrder, IOrdersResponse, IOpenOrdersResponse, ICancelOrderResponse, IOrderResponse } from '../types/Orders';
+import {
+    IOrder,
+    IOrdersResponse,
+    IOpenOrdersResponse,
+    ICancelOrderResponse,
+    IOrderResponse,
+    IReplaceOrder,
+} from '../types/Orders';
 import { IPaging } from '../types/Paging';
 
 export default class Orders extends Http {
@@ -87,6 +94,16 @@ export default class Orders extends Http {
         }
 
         const response = await this.privateRequest(HttpMethods.POST, '/orders', null, data);
+
+        return getParsedBody(response) as IOrderResponse;
+    }
+
+    public async replaceOrder(data: IReplaceOrder): Promise<IOrderResponse> {
+        if (!data) {
+            throw new BaseError('MissingArgument', 'Order arguments are missing');
+        }
+
+        const response = await this.privateRequest(HttpMethods.PUT, `/orders/${data.orderId}`, null, data);
 
         return getParsedBody(response) as IOrderResponse;
     }

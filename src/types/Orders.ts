@@ -41,3 +41,9 @@ export interface ICancelOrderResponse extends IBaseResponse {
 export interface ICancelAllOrderResponse extends IBaseResponse {
     data: IBaseOrder[];
 }
+
+export interface IReplaceOrder extends IBaseOrder {
+    price: string;
+    amount: string;
+    clientOrderId: string;
+}
