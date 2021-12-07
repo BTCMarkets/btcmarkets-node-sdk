@@ -24,10 +24,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
-        npm i
+        npm ci
         npm run lint
         npm run test
-        npm run build --if-present
 
   publish:
     needs: [build]
@@ -39,6 +38,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      - name: npm build
+        run: |
+          npm ci
+          npm run build --if-present
       - name: Publish
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: mikeal/merge-release@master
