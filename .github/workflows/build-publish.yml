@@ -9,38 +9,51 @@ on:
       - master
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x, 13.x]
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm i
-        npm run lint
-        npm run test
-        npm run build --if-present
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Lint, Test Code and Test Build on Node.js ${{ matrix.node-version }}
+        run: |
+          npm ci
+          npm run lint
+          npm run test
+          npm run build
 
   publish:
-    needs: [build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout the code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 1
-      - uses: actions/setup-node@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
           node-version: '12.x'
-      - name: Publish
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+      - name: Build for Node.js ${{ matrix.node-version }}
+        run: |
+          npm ci
+          npm run build
+
+      - name: Publish build to NPM registry
         uses: mikeal/merge-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
