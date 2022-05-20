@@ -47,7 +47,12 @@ class Http {
         }
     }
 
-    public async privateRequest(method: HttpMethods, path: string, query: object | null | string, data: object | null) {
+    public async privateRequest(
+        method: HttpMethods,
+        path: string,
+        query: object | null | string,
+        data?: object | null
+    ) {
         const { key, secret } = this.config;
 
         if (!key || !secret) {

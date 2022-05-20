@@ -11,13 +11,13 @@ export default class Batches extends Http {
 
     public async getOrdersById(ids: string[]): Promise<IGetBatchResponse> {
         const pathIds = ids.join(',');
-        const response = await this.privateRequest(HttpMethods.GET, `/batchorders/${pathIds}`, null, null);
+        const response = await this.privateRequest(HttpMethods.GET, `/batchorders/${pathIds}`, null);
         return getParsedBody(response) as IGetBatchResponse;
     }
 
     public async cancelOrdersById(ids: string[]): Promise<ICancelBatchResponse> {
         const pathIds = ids.join(',');
-        const response = await this.privateRequest(HttpMethods.DELETE, `/batchorders/${pathIds}`, null, null);
+        const response = await this.privateRequest(HttpMethods.DELETE, `/batchorders/${pathIds}`, null);
         return getParsedBody(response) as ICancelBatchResponse;
     }
 }

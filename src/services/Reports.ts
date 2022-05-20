@@ -22,7 +22,7 @@ export default class Reports extends Http {
     }
 
     public async getReportById(id: string, withFileData: boolean = false): Promise<IGetReportResponse> {
-        const response = await this.privateRequest(HttpMethods.GET, `/reports/${id}`, null, null);
+        const response = await this.privateRequest(HttpMethods.GET, `/reports/${id}`, null);
         const result = getParsedBody(response) as IGetReportResponse;
         if (result && result.data && withFileData) {
             const fileData = await this.downloadRequest(result.data.contentUrl);
