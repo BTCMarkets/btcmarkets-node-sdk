@@ -45,8 +45,8 @@ export default class Orders extends Http {
         return {
             data: body,
             paging: {
-                before: headers['bm-before'],
-                after: headers['bm-after'],
+                before: headers['bm-before'] as unknown,
+                after: headers['bm-after'] as unknown,
                 limit: queryParameters.limit,
             } as IPaging,
         } as IOrdersResponse;
