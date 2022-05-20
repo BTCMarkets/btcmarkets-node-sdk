@@ -15,7 +15,7 @@ export default class Orders extends Http {
             marketId,
         };
 
-        let response = await this.privateRequest(HttpMethods.GET, '/orders', qs, null);
+        let response = await this.privateRequest(HttpMethods.GET, '/orders', qs);
 
         return getParsedBody(response) as IOpenOrdersResponse;
     }
@@ -39,7 +39,7 @@ export default class Orders extends Http {
             }
         }
 
-        let response = await this.privateRequest(HttpMethods.GET, '/orders', qs, null);
+        let response = await this.privateRequest(HttpMethods.GET, '/orders', qs);
         const body = response.data as IOrder[];
         const headers = response.headers;
         return {
@@ -57,7 +57,7 @@ export default class Orders extends Http {
             throw new BaseError('InvalidOrderId', 'invalid order id');
         }
 
-        const response = await this.privateRequest(HttpMethods.GET, `/orders/${id}`, null, null);
+        const response = await this.privateRequest(HttpMethods.GET, `/orders/${id}`, null);
         return getParsedBody(response) as IOrderResponse;
     }
 
@@ -96,7 +96,7 @@ export default class Orders extends Http {
             throw new BaseError('InvalidOrderId', 'invalid order id');
         }
 
-        const response = await this.privateRequest(HttpMethods.DELETE, `/orders/${id}`, null, null);
+        const response = await this.privateRequest(HttpMethods.DELETE, `/orders/${id}`, null);
         return getParsedBody(response) as ICancelOrderResponse;
     }
 
@@ -106,7 +106,7 @@ export default class Orders extends Http {
             qs = '?marketId=' + marketIds.join('&marketId=');
         }
 
-        const response = await this.privateRequest(HttpMethods.DELETE, `/orders`, qs, null);
+        const response = await this.privateRequest(HttpMethods.DELETE, `/orders`, qs);
         return getParsedBody(response);
     }
 }
